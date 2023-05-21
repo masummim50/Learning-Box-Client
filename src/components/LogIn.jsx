@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import app from "../firebase/firebaseConfig";
+
 import { useGetPostsQuery } from "../features/post/postApi";
 import { useLoginMutation } from "../features/user/userApi";
 import { useNavigate } from "react-router-dom";
+import { app } from "../firebase/firebaseConfig";
 
 const LogIn = () => {
   const navigate = useNavigate()
