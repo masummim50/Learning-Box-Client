@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import app from "../firebase/firebaseConfig";
+import { useGetPostsQuery } from "../features/post/postApi";
+import { useLoginMutation } from "../features/user/userApi";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
+  const navigate = useNavigate()
+  const [login, {data, error, isSuccess}] = useLoginMutation();
   const provider = new GoogleAuthProvider(app);
   const auth = getAuth();
   const handleLogin = () => {
     signInWithPopup(auth, provider).then((result) => {
-      console.log(result);
+      console.log(result._tokenResponse.idToken);
+      const user = {
+        name: result.user.displayName,
+        email: result.user.email
+      }
+      login(user);
     });
   };
+
+  useEffect(()=> {
+    if(isSuccess) navigate("/")
+  },[isSuccess])
+
+
   return (
     <div className="h-[100vh] bg-slate-900 text-slate-300 flex items-center justify-center">
       <button

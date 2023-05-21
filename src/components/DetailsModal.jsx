@@ -1,6 +1,7 @@
 import React from 'react';
 
 const DetailsModal = ({singlePost, setShowModal}) => {
+    const text = singlePost.post.replace(/\n/g, "<br>");
     return (
         <div className={`fixed ${singlePost.color.light} ${singlePost.color.dark} z-30 top-0 left-0 h-[100vh] w-[100vw] text-white`}>
 
@@ -9,7 +10,7 @@ const DetailsModal = ({singlePost, setShowModal}) => {
             </div>
             <div className="content">
                 <h2>{singlePost.title}</h2>
-                <p>{singlePost.post}</p>
+                <pre>{singlePost.post}</pre>
             </div>
         </div>
     );
