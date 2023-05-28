@@ -3,7 +3,7 @@ import { apiSlice } from "../api/apiSlice";
 export const postsApi = apiSlice.injectEndpoints({
     endpoints: (builder)=> ({
         getPosts: builder.query({
-            query: ()=> "/posts"
+            query: ()=> '/home'
         }),
         getPostById: builder.query({
             query: (id)=> `/posts/${id}`
@@ -14,9 +14,15 @@ export const postsApi = apiSlice.injectEndpoints({
                 method:'POST',
                 body:data
             }),
-            async onQueryStarted(args, {queryFulfilled}){
+            async onQueryStarted(args, {queryFulfilled,dispatch}){
                 const result = await queryFulfilled;
-                console.log('post mutation', result)
+                console.log('post mutation', result.data.data)
+                await dispatch(
+                    apiSlice.util.updateQueryData('getPosts', undefined, (draftPosts) => {
+                        console.log(JSON.stringify(draftPosts))
+                      draftPosts.data.posts.unshift(result.data.data)
+                    })
+                  )
             }
         })
     })

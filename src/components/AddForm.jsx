@@ -10,7 +10,7 @@ const AddForm = () => {
     const { register, handleSubmit } = useForm()
 
     const onSubmit = (data) => {
-        data = { ...data, tags: data.tags.split(" "), user: user.id };
+        data = { ...data, tags: data.tags.split(" ").filter(elem=> elem!= ""), user: user.id };
         console.log("after adding all", data)
         addpost({ ...data });
         navigate("/")
@@ -31,24 +31,24 @@ const AddForm = () => {
                     <input required {...register("tags", { required: true })} type="text" className='scrollbar-hide w-full shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' />
                 </div>
 
-                <div className="flex flex-row gap-3 w-full">
+                <div className="flex flex-row gap-3 w-full mt-2">
                     <label htmlFor='Color' className="Color flex items-center justify-center">
-                        <input type="radio" required {...register("color", { required: true })} value="text-orange-600" />
-                        <div className="relative overflow-hidden h-[30px] w-[30px] rounded-[50%]">
+                        <input type="radio" required {...register("color", { required: true })} value="text-orange-600" className='appearance-none w-[30px] h-[30px] bg-orange-600 checked:border-2 checked:border-orange-900 rounded-lg border-2' />
+                        {/* <div className="relative overflow-hidden h-[30px] w-[30px] rounded-[50%]">
                             <div className="bg-orange-600 h-full w-full absolute top-0 right-0"></div>
-                        </div>
+                        </div> */}
                     </label>
                     <label htmlFor='Color' className="Color flex items-center justify-center">
-                        <input type="radio" {...register("color", { required: true })} value="text-pink-600" />
-                        <div className="relative overflow-hidden h-[30px] w-[30px] rounded-[50%]">
+                        <input type="radio" {...register("color", { required: true })} value="text-pink-600" className='appearance-none w-[30px] h-[30px] bg-pink-600 checked:border-2 checked:border-orange-900 rounded-lg border-2' />
+                        {/* <div className="relative overflow-hidden h-[30px] w-[30px] rounded-[50%]">
                             <div className="bg-pink-600 h-full w-full absolute top-0 right-[50%]"></div>
-                        </div>
+                        </div> */}
                     </label>
                     <label htmlFor='Color' className="Color flex items-center justify-center">
-                        <input type="radio" {...register("color", { required: true })} value="text-purple-600" />
-                        <div className="relative overflow-hidden h-[30px] w-[30px] rounded-[50%]">
+                        <input type="radio" {...register("color", { required: true })} value="text-purple-600"  className='appearance-none w-[30px] h-[30px] bg-purple-600 checked:border-2 checked:border-orange-900 rounded-lg border-2'/>
+                        {/* <div className="relative overflow-hidden h-[30px] w-[30px] rounded-[50%]">
                             <div className="bg-purple-600 h-full w-full absolute top-0 right-[50%]"></div>
-                        </div>
+                        </div> */}
                     </label>
                 </div>
 

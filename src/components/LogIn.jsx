@@ -18,12 +18,18 @@ const LogIn = () => {
         name: result.user.displayName,
         email: result.user.email
       }
-      login(user);
+      login({token:result._tokenResponse.idToken});
     });
   };
 
   useEffect(()=> {
-    if(isSuccess) navigate("/")
+    const set = async()=> {
+      await localStorage.setItem("learningBox-accessToken", data.accessToken)
+      navigate("/")
+    }
+    if(isSuccess){
+      set()
+    } 
   },[isSuccess])
 
 
